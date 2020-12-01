@@ -2,38 +2,39 @@ import React, { Component } from 'react';
 import s from './Feedback.module.css';
 
 class Feedback extends Component {
-  static defaultProps = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
-
   static propTypes = {
     //
   };
 
   state = {
-    good: this.props.good,
-    neutral: this.props.neutral,
-    bad: this.props.bad,
+    good: 0,
+    neutral: 0,
+    bad: 0,
   };
 
   countGoodFeed = () => {
     this.setState(prevState => ({
       good: prevState.good + 1,
     }));
+    this.countTotalFeedback();
   };
 
   countNeutralFeed = () => {
     this.setState(prevState => ({
       neutral: prevState.neutral + 1,
     }));
+    this.countTotalFeedback();
   };
 
   countBadFeed = () => {
     this.setState(prevState => ({
       bad: prevState.bad + 1,
     }));
+    this.countTotalFeedback();
+  };
+
+  countTotalFeedback = () => {
+    this.state.reduce((acc, feedback) => feedback + acc, 0);
   };
 
   render() {
@@ -49,7 +50,7 @@ class Feedback extends Component {
           <li>Good: {this.state.good}</li>
           <li>Neutral: {this.state.neutral}</li>
           <li>Bad: {this.state.bad}</li>
-          <li>Total: 0</li>
+          <li>Total: {this.countTotalFeedback}</li>
           <li>Positive feedback: 0%</li>
         </ul>
       </div>
