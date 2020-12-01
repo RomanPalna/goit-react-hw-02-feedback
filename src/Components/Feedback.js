@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Statistic from './Statistics';
+import Statistics from './Statistics';
+import Notification from './Notification';
 // import s from './Feedback.module.css';
 
-class Feedback extends Component {
+export default class Feedback extends Component {
   static propTypes = {
     //
   };
@@ -11,6 +12,7 @@ class Feedback extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
+    visible: true,
   };
 
   countGoodFeed = () => {
@@ -56,24 +58,62 @@ class Feedback extends Component {
   };
 
   render() {
-    return (
-      <div className="feedback">
-        <h2>Please leave feedback!</h2>
-        <div>
-          <button onClick={this.countGoodFeed}>Good</button>
-          <button onClick={this.countNeutralFeed}>Neutral</button>
-          <button onClick={this.countBadFeed}>Bad</button>
+    if (
+      Object.values(this.state).reduce(function (feedbackCurr, feedbackNext) {
+        const feed = feedbackCurr + feedbackNext;
+        if (feed > 0) {
+          return feed;
+        }
+      }) > 0
+    ) {
+      return (
+        <div className="feedback">
+          <h2>Please leave feedback!</h2>
+          <div>
+            <button onClick={this.countGoodFeed}>Good</button>
+            <button onClick={this.countNeutralFeed}>Neutral</button>
+            <button onClick={this.countBadFeed}>Bad</button>
+          </div>
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={this.countTotalFeedback()}
+            positivePercentage={this.countPositiveFeedbackPercentage()}
+          />
         </div>
-        <Statistic
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={this.countTotalFeedback()}
-          positivePercentage={this.countPositiveFeedbackPercentage()}
-        />
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="feedback">
+          <h2>Please leave feedback!</h2>
+          <div>
+            <button onClick={this.countGoodFeed}>Good</button>
+            <button onClick={this.countNeutralFeed}>Neutral</button>
+            <button onClick={this.countBadFeed}>Bad</button>
+          </div>
+          <Notification message="No feedback given" />
+        </div>
+      );
+    }
   }
 }
 
-export default Feedback;
+//  return (
+//    <div className="feedback">
+//      <h2>Please leave feedback!</h2>
+//      <div>
+//        <button onClick={this.countGoodFeed}>Good</button>
+//        <button onClick={this.countNeutralFeed}>Neutral</button>
+//        <button onClick={this.countBadFeed}>Bad</button>
+//      </div>
+//      <Statistics
+//        good={this.state.good}
+//        neutral={this.state.neutral}
+//        bad={this.state.bad}
+//        total={this.countTotalFeedback()}
+//        positivePercentage={this.countPositiveFeedbackPercentage()}
+//      />
+//      <Notification message="No feedback given" />
+//    </div>
+//  );

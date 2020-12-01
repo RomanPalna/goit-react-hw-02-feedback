@@ -1,4 +1,4 @@
-const Statistic = ({ bad, neutral, good, total, positivePercentage }) => (
+const Statistics = ({ bad, neutral, good, total, positivePercentage }) => (
   <ul>
     <li>Good: {good}</li>
     <li>Neutral: {neutral}</li>
@@ -7,4 +7,4 @@ const Statistic = ({ bad, neutral, good, total, positivePercentage }) => (
     <li>Positive feedback: {positivePercentage}%</li>
   </ul>
 );
-export default Statistic;
+export default Statistics;
