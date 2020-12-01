@@ -63,6 +63,7 @@ export default class Feedback extends Component {
     if (
       Object.values(this.state).reduce(function (feedbackCurr, feedbackNext) {
         const feed = feedbackCurr + feedbackNext;
+
         if (feed > 0) {
           return feed;
         }
@@ -103,22 +104,3 @@ export default class Feedback extends Component {
     }
   }
 }
-
-//  return (
-//    <div className="feedback">
-//      <h2>Please leave feedback!</h2>
-//      <div>
-//        <button onClick={this.countGoodFeed}>Good</button>
-//        <button onClick={this.countNeutralFeed}>Neutral</button>
-//        <button onClick={this.countBadFeed}>Bad</button>
-//      </div>
-//      <Statistics
-//        good={this.state.good}
-//        neutral={this.state.neutral}
-//        bad={this.state.bad}
-//        total={this.countTotalFeedback()}
-//        positivePercentage={this.countPositiveFeedbackPercentage()}
-//      />
-//      <Notification message="No feedback given" />
-//    </div>
-//  );
