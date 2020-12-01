@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import s from './Feedback.module.css';
+import Statistic from './Statistics';
+// import s from './Feedback.module.css';
 
 class Feedback extends Component {
   static propTypes = {
@@ -63,13 +64,13 @@ class Feedback extends Component {
           <button onClick={this.countNeutralFeed}>Neutral</button>
           <button onClick={this.countBadFeed}>Bad</button>
         </div>
-        <ul>
-          <li>Good: {this.state.good}</li>
-          <li>Neutral: {this.state.neutral}</li>
-          <li>Bad: {this.state.bad}</li>
-          <li>Total: {this.countTotalFeedback()}</li>
-          <li>Positive feedback: {this.countPositiveFeedbackPercentage()}%</li>
-        </ul>
+        <Statistic
+          good={this.state.good}
+          neutral={this.state.neutral}
+          bad={this.state.bad}
+          total={this.countTotalFeedback()}
+          positivePercentage={this.countPositiveFeedbackPercentage()}
+        />
       </div>
     );
   }
