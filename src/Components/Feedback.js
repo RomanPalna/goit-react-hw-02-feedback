@@ -17,6 +17,7 @@ class Feedback extends Component {
       good: prevState.good + 1,
     }));
     this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
 
   countNeutralFeed = () => {
@@ -24,6 +25,7 @@ class Feedback extends Component {
       neutral: prevState.neutral + 1,
     }));
     this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
 
   countBadFeed = () => {
@@ -31,6 +33,7 @@ class Feedback extends Component {
       bad: prevState.bad + 1,
     }));
     this.countTotalFeedback();
+    this.countPositiveFeedbackPercentage();
   };
 
   countTotalFeedback = () => {
@@ -42,7 +45,14 @@ class Feedback extends Component {
     });
   };
 
-  countPositiveFeedbackPercentage = () => {};
+  countPositiveFeedbackPercentage = () => {
+    const percentage = (this.state.good / this.countTotalFeedback()) * 100;
+    if (isNaN(percentage)) {
+      return 0;
+    } else {
+      return Math.round(percentage);
+    }
+  };
 
   render() {
     return (
@@ -58,7 +68,7 @@ class Feedback extends Component {
           <li>Neutral: {this.state.neutral}</li>
           <li>Bad: {this.state.bad}</li>
           <li>Total: {this.countTotalFeedback()}</li>
-          <li>Positive feedback: {this.countPositiveFeedbackPercentage}%</li>
+          <li>Positive feedback: {this.countPositiveFeedbackPercentage()}%</li>
         </ul>
       </div>
     );
