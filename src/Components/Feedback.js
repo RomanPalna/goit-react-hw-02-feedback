@@ -14,7 +14,6 @@ export default class Feedback extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    visible: true,
   };
 
   countGoodFeed = () => {
@@ -56,25 +55,24 @@ export default class Feedback extends Component {
     }
   };
 
-  render() {
-    if (
-      Object.values(this.state).reduce(function (feedbackCurr, feedbackNext) {
-        const feed = feedbackCurr + feedbackNext;
+  onLeaveFeedback = e => {
+    const elem = e.target.name;
+    this.setState(prevState => ({
+      [elem]: prevState[elem] + 1,
+    }));
+  };
 
-        if (feed > 0) {
-          return feed;
-        }
-        return;
-      }) > 0
-    ) {
-      return (
-        <div>
-          <Section title="Please leave feedback">
-            <FeedbackOptions
-              good={this.countGoodFeed}
-              neutral={this.countNeutralFeed}
-              bad={this.countBadFeed}
-            />
+  render() {
+    return (
+      <div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
+          {this.countTotalFeedback() === 0 ? (
+            <Notification message="No feedback given" />
+          ) : (
             <Statistics
               good={this.state.good}
               neutral={this.state.neutral}
@@ -82,22 +80,9 @@ export default class Feedback extends Component {
               total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
-          </Section>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Section title="Please leave feedback">
-            <FeedbackOptions
-              good={this.countGoodFeed}
-              neutral={this.countNeutralFeed}
-              bad={this.countBadFeed}
-            />
-            <Notification message="No feedback given" />
-          </Section>
-        </div>
-      );
-    }
+          )}
+        </Section>
+      </div>
+    );
   }
 }

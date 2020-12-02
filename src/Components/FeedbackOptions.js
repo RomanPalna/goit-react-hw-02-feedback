@@ -1,16 +1,26 @@
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
 
-const FeedbackOptions = ({ good, neutral, bad }) => (
-  <div>
-    <button onClick={good}>Good</button>
-    <button onClick={neutral}>Neutral</button>
-    <button onClick={bad}>Bad</button>
-  </div>
-);
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return (
+    <>
+      {options.map(option => (
+        <button
+          key={shortid.generate()}
+          type="button"
+          name={option}
+          onClick={onLeaveFeedback}
+        >
+          {option}
+        </button>
+      ))}
+    </>
+  );
+};
+
 export default FeedbackOptions;
 
 FeedbackOptions.propTypes = {
-  good: PropTypes.func.isRequired,
-  neutral: PropTypes.func.isRequired,
-  bad: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };
