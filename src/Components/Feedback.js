@@ -42,12 +42,9 @@ export default class Feedback extends Component {
   };
 
   countTotalFeedback = () => {
-    return Object.values(this.state).reduce(function (
-      feedbackCurr,
-      feedbackNext,
-    ) {
-      return feedbackCurr + feedbackNext;
-    });
+    const { good, neutral, bad } = this.state;
+    const total = good + neutral + bad;
+    return total;
   };
 
   countPositiveFeedbackPercentage = () => {
