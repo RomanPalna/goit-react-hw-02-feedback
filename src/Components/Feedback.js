@@ -20,24 +20,18 @@ export default class Feedback extends Component {
     this.setState(prevState => ({
       good: prevState.good + 1,
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   countNeutralFeed = () => {
     this.setState(prevState => ({
       neutral: prevState.neutral + 1,
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   countBadFeed = () => {
     this.setState(prevState => ({
       bad: prevState.bad + 1,
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
   countTotalFeedback = () => {
